@@ -19,7 +19,7 @@ router.get("/", async (req,res,next)=>{
 
 });
 
-router.get("/:id", mw.AllStarsIdKontrol, async (req,res,next)=>{
+router.get("/:AllStars_id", mw.AllStarsIdKontrol, async (req,res,next)=>{
 
 
     try {
@@ -31,7 +31,7 @@ router.get("/:id", mw.AllStarsIdKontrol, async (req,res,next)=>{
 
 });
 
-router.post("/", async (req,res,next)=>{
+router.post("/",mw.AllStarsPayloadKontrol, async (req,res,next)=>{
 
 
     try {
@@ -45,11 +45,11 @@ router.post("/", async (req,res,next)=>{
 
 });
 
-router.delete("/:id",mw.AllStarsIdKontrol, async (req,res,next)=>{
+router.delete("/:AllStars_id", mw.AllStarsIdKontrol, async (req,res,next)=>{
 
     try {
-        await starModels.remove(req.params.id)
-        res.status(204).json(req.player)
+        let deleted = await starModels.remove(req.params.AllStars_id)
+        res.status(200).json(deleted)
     } catch(error){
         next(error);
     }

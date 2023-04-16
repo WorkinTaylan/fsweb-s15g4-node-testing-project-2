@@ -16,7 +16,8 @@ async function create(oyuncu){
 }
 
 async function remove(AllStars_id){
-    await db("AllStars"). where("AllStars_id", AllStars_id).del()
+    await db("AllStars").where("AllStars_id", AllStars_id).del()
+    return getAll()
 }
 
 async function update(AllStars_id, oyuncu){

@@ -2,9 +2,9 @@ const starModels=require("./all-stars-models");
 
 async function AllStarsIdKontrol(req,res,next){
     try {
-        const existPlayer=await starModels.getById(req.params.id)
-        if(!existPlayer){
-            res.status(404).json({message:"Bulamadık"})
+        let existPlayer=await starModels.getById(req.params.AllStars_id)
+        if(existPlayer.length==0){
+            res.status(404).json({message:"Aranılan oyuncu bulunamadı"})
     }
         else{
             req.player=existPlayer;
@@ -15,8 +15,24 @@ async function AllStarsIdKontrol(req,res,next){
     }
 }
 
+async function AllStarsPayloadKontrol(req,res,next){
+    try {
+        const {Player_Name, Forma_No}=req.body
+        if(!Player_Name || !Forma_No){
+            res.status(422).json({message:"Oyuncu İsmi veya Forma Numarası eksik"})
+        }
+        else{
+            
+            next()
+        }
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 
 module.exports={
-AllStarsIdKontrol
+AllStarsIdKontrol,
+AllStarsPayloadKontrol
 }
